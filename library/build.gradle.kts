@@ -13,7 +13,7 @@ version = "0.1.0"
 kotlin {
     jvm()
     androidLibrary {
-        namespace = "com.lowbudgetlcs.riot4K"
+        namespace = "com.lowbudgetlcs.Riot4k"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
@@ -56,13 +56,13 @@ mavenPublishing {
 
     // signAllPublications()
 
-    coordinates(group.toString(), "riot4K", version.toString())
+    coordinates(group.toString(), "Riot4k", version.toString())
 
     pom {
-        name = "riot4K"
+        name = "Riot4k"
         description = "A Riot API SDK"
         inceptionYear = "2025"
-        url = "https://github.com/lowbudgetlcs/Riot4K"
+        url = "https://github.com/lowbudgetlcs/Riot4k"
         licenses {
             license {
                 name = "XXX"

@@ -1,4 +1,4 @@
-# riot4K
+# Riot4k
 
 ## Disclaimer
 
@@ -6,7 +6,7 @@ This project is in early development stages, **use at your own risk**.
 
 ## Our Goals
 
-We aim for riot4K to be a modern, type-safe, and asynchronous Riot Games API SDK, built entirely in Kotlin.
+We aim for Riot4k to be a modern, type-safe, and asynchronous Riot Games API SDK, built entirely in Kotlin.
 
 We wish to be the *first and only* Riot library capable of sharing logic. Truly write once, run everywhere. No more writing separate API clients for the app and the server - or even worse, picking up different libraries of varying qualities.
 

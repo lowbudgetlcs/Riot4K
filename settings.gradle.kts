@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "riot4K"
+rootProject.name = "Riot4k"
 include(":library")
