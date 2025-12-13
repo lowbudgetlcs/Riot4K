@@ -1,4 +1,4 @@
-package com.lowbudgetlcs.Riot4k
+package com.lowbudgetlcs.riot4k
 
 actual val firstElement: Int = 0
 actual val secondElement: Int = 1

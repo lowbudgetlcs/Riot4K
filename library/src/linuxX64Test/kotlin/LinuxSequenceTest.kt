@@ -1,4 +1,4 @@
-package com.lowbudgetlcs.Riot4k
+package com.lowbudgetlcs.riot4k
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
