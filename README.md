@@ -1,4 +1,4 @@
-# Riot4k
+# Riot4K
 
 ## Disclaimer
 
