@@ -35,6 +35,10 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
     linuxX64()
+    js(IR) {
+        browser()
+        nodejs()
+    }
 
     sourceSets {
         commonMain.dependencies {
@@ -56,8 +60,8 @@ mavenPublishing {
 
     pom {
         name = "riot4K"
-        description = "A library."
-        inceptionYear = "2024"
+        description = "A Riot API SDK"
+        inceptionYear = "2025"
         url = "https://github.com/lowbudgetlcs/Riot4K"
         licenses {
             license {

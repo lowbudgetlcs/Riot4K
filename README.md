@@ -1,19 +1,49 @@
-[![official project](http://jb.gg/badges/official.svg)](https://github.com/JetBrains#jetbrains-on-github)
+# riot4K
 
-# Multiplatform library template
+## Disclaimer
 
-## What is it?
+This project is in early development stages, **use at your own risk**.
 
-This repository contains a simple library project, intended to demonstrate a [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) library that is deployable to [Maven Central](https://central.sonatype.com/).
+## Our Goals
 
-The library has only one function: generate the [Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_sequence) starting from platform-provided numbers. Also, it has a test for each platform just to be sure that tests run.
+We aim for riot4K to be a modern, type-safe, and asynchronous Riot Games API SDK, built entirely in Kotlin.
 
-Note that no other actions or tools usually required for the library development are set up, such as [tracking of backwards compatibility](https://kotlinlang.org/docs/jvm-api-guidelines-backward-compatibility.html#tools-designed-to-enforce-backward-compatibility), explicit API mode, licensing, contribution guideline, code of conduct and others. You can find a guide for best practices for designing Kotlin libraries [here](https://kotlinlang.org/docs/api-guidelines-introduction.html).
+We wish to be the *first and only* Riot library capable of sharing logic. Truly write once, run everywhere. No more writing separate API clients for the app and the server - or even worse, picking up different libraries of varying qualities.
 
-## Guide
+We want to enable high-traffic applications by properly applying Coroutines.
 
-Please find the detailed guide [here](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html).
+## Compatibility
 
-# Other resources
-* [Publishing via the Central Portal](https://central.sonatype.org/publish-ea/publish-ea-guide/)
-* [Gradle Maven Publish Plugin \- Publishing to Maven Central](https://vanniktech.github.io/gradle-maven-publish-plugin/central/)
+| API Endpoint          | Game                  | JVM | Android | iOS | Linux | JS |
+| --------------------- | --------------------- | --- | ------- | --- | ----- | -- |
+| `account-v1`          | Riftbound RSO         | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `champion-mastery-v4` | League of Legends     | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `champion-v3`         | League of Legends     | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `clash-v1`            | League of Legends     | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `league-exp-v4`       | League of Legends     | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `league-v4`           | League of Legends     | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `lol-challenges-v1`   | League of Legends     | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `lol-rso-match-v1`    | League of Legends RSO | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `lol-status-v4`       | League of Legends     | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `lor-deck-v1`         | Legends of Runeterra RSO | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `lor-inventory-v1`    | Legends of Runeterra RSO | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `lor-match-v1`        | Legends of Runeterra  | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `lor-ranked-v1`       | Legends of Runeterra  | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `lor-status-v1`       | Legends of Runeterra  | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `match-v5`            | League of Legends     | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `riftbound-content-v1`| Riftbound             | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `spectator-tft-v5`    | Teamfight Tactics     | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `spectator-v5`        | League of Legends     | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `summoner-v4`         | League of Legends     | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `tft-league-v1`       | Teamfight Tactics     | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `tft-match-v1`        | Teamfight Tactics     | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `tft-status-v1`       | Teamfight Tactics     | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `tft-summoner-v1`     | Teamfight Tactics RSO | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `tournament-stub-v5`  | League of Legends     | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `tournament-v5`       | League of Legends Tournaments | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `val-console-match-v1`| VALORANT              | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `val-console-ranked-v1`| VALORANT              | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `val-content-v1`      | VALORANT              | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `val-match-v1`        | VALORANT              | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `val-ranked-v1`       | VALORANT              | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `val-status-v1`       | VALORANT              | ❌  | ❌      | ❌  | ❌    | ❌  |
