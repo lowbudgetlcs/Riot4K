@@ -13,5 +13,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Riot4k"
-include(":library")
+rootProject.name = "riot4k"
+include(":riot4k-core")
+include(":riot4k-models")
+include(":riot4k-api")
