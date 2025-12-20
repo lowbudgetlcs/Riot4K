@@ -37,6 +37,8 @@ kotlin {
     js(IR) {
         browser()
         nodejs()
+        binaries.library()
+        generateTypeScriptDefinitions()
     }
 
     sourceSets {
