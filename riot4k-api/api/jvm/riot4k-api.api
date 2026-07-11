@@ -1,0 +1,16 @@
+public final class com/lowbudgetlcs/riot4k/api/Riot4K {
+	public static final field Companion Lcom/lowbudgetlcs/riot4k/api/Riot4K$Companion;
+	public fun <init> (Lcom/lowbudgetlcs/riot4k/core/RiotHttpClient;)V
+	public fun <init> (Lcom/lowbudgetlcs/riot4k/core/config/Riot4KConfig;)V
+	public final fun accountV1 ()Lcom/lowbudgetlcs/riot4k/api/endpoints/AccountV1;
+	public final fun close ()V
+}
+
+public final class com/lowbudgetlcs/riot4k/api/Riot4K$Companion {
+	public final fun create (Ljava/lang/String;)Lcom/lowbudgetlcs/riot4k/api/Riot4K;
+}
+
+public final class com/lowbudgetlcs/riot4k/api/endpoints/AccountV1 {
+	public final fun getByRiotId (Lcom/lowbudgetlcs/riot4k/core/routes/RegionalRoute;Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+

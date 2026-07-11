@@ -1,0 +1,238 @@
+public final class com/lowbudgetlcs/riot4k/core/RiotHttpClient {
+	public static final field Companion Lcom/lowbudgetlcs/riot4k/core/RiotHttpClient$Companion;
+	public static final field RIOT_KEY_HEADER Ljava/lang/String;
+	public fun <init> (Lcom/lowbudgetlcs/riot4k/core/config/Riot4KConfig;Lcom/lowbudgetlcs/riot4k/core/ratelimit/RateLimiter;Lio/ktor/client/HttpClient;)V
+	public synthetic fun <init> (Lcom/lowbudgetlcs/riot4k/core/config/Riot4KConfig;Lcom/lowbudgetlcs/riot4k/core/ratelimit/RateLimiter;Lio/ktor/client/HttpClient;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun close ()V
+	public final fun execute (Lcom/lowbudgetlcs/riot4k/core/routes/Route;Ljava/lang/String;[Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/lowbudgetlcs/riot4k/core/RiotHttpClient$Companion {
+}
+
+public abstract class com/lowbudgetlcs/riot4k/core/RiotHttpClient$RequestOutcome {
+}
+
+public final class com/lowbudgetlcs/riot4k/core/RiotHttpClient$RequestOutcome$Failed : com/lowbudgetlcs/riot4k/core/RiotHttpClient$RequestOutcome {
+	public fun <init> (Lcom/lowbudgetlcs/riot4k/core/result/RiotResult$Failure;)V
+	public final fun getFailure ()Lcom/lowbudgetlcs/riot4k/core/result/RiotResult$Failure;
+}
+
+public final class com/lowbudgetlcs/riot4k/core/RiotHttpClient$RequestOutcome$NotFound : com/lowbudgetlcs/riot4k/core/RiotHttpClient$RequestOutcome {
+	public static final field INSTANCE Lcom/lowbudgetlcs/riot4k/core/RiotHttpClient$RequestOutcome$NotFound;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/lowbudgetlcs/riot4k/core/RiotHttpClient$RequestOutcome$Ok : com/lowbudgetlcs/riot4k/core/RiotHttpClient$RequestOutcome {
+	public fun <init> (Lio/ktor/client/statement/HttpResponse;I)V
+	public final fun getResponse ()Lio/ktor/client/statement/HttpResponse;
+	public final fun getRetries ()I
+}
+
+public final class com/lowbudgetlcs/riot4k/core/config/Riot4KConfig {
+	public static final field BURST_BURST_FACTOR D
+	public static final field BURST_DURATION_OVERHEAD_MS J
+	public static final field Companion Lcom/lowbudgetlcs/riot4k/core/config/Riot4KConfig$Companion;
+	public static final field DEFAULT_BASE_URL_TEMPLATE Ljava/lang/String;
+	public static final field DEFAULT_MAX_RETRIES I
+	public static final field THROUGHPUT_BURST_FACTOR D
+	public static final field THROUGHPUT_DURATION_OVERHEAD_MS J
+	public synthetic fun <init> (Ljava/lang/String;IDJLjava/lang/String;Lcom/lowbudgetlcs/riot4k/core/models/Clock;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getApiKey ()Ljava/lang/String;
+	public final fun getBaseUrlTemplate ()Ljava/lang/String;
+	public final fun getBurstFactor ()D
+	public final fun getClock ()Lcom/lowbudgetlcs/riot4k/core/models/Clock;
+	public final fun getDurationOverheadMs ()J
+	public final fun getMaxRetries ()I
+}
+
+public final class com/lowbudgetlcs/riot4k/core/config/Riot4KConfig$Builder {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun baseUrlTemplate (Ljava/lang/String;)Lcom/lowbudgetlcs/riot4k/core/config/Riot4KConfig$Builder;
+	public final fun build ()Lcom/lowbudgetlcs/riot4k/core/config/Riot4KConfig;
+	public final fun burstFactor (D)Lcom/lowbudgetlcs/riot4k/core/config/Riot4KConfig$Builder;
+	public final fun clock (Lcom/lowbudgetlcs/riot4k/core/models/Clock;)Lcom/lowbudgetlcs/riot4k/core/config/Riot4KConfig$Builder;
+	public final fun durationOverheadMs (J)Lcom/lowbudgetlcs/riot4k/core/config/Riot4KConfig$Builder;
+	public final fun maxRetries (I)Lcom/lowbudgetlcs/riot4k/core/config/Riot4KConfig$Builder;
+}
+
+public final class com/lowbudgetlcs/riot4k/core/config/Riot4KConfig$Companion {
+	public final fun burst (Ljava/lang/String;)Lcom/lowbudgetlcs/riot4k/core/config/Riot4KConfig;
+	public final fun of (Ljava/lang/String;)Lcom/lowbudgetlcs/riot4k/core/config/Riot4KConfig;
+	public final fun throughput (Ljava/lang/String;)Lcom/lowbudgetlcs/riot4k/core/config/Riot4KConfig;
+}
+
+public class com/lowbudgetlcs/riot4k/core/errors/RiotApiException : java/lang/RuntimeException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Integer;ILjava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Integer;ILjava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getRetries ()I
+	public final fun getStatusCode ()Ljava/lang/Integer;
+}
+
+public final class com/lowbudgetlcs/riot4k/core/errors/RiotRateLimitException : com/lowbudgetlcs/riot4k/core/errors/RiotApiException {
+	public static final field RATE_LIMIT_STATUS I
+	public fun <init> (Ljava/lang/String;ILjava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;ILjava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getRateLimitType ()Ljava/lang/String;
+}
+
+public abstract interface class com/lowbudgetlcs/riot4k/core/models/Clock {
+	public abstract fun nowMillis ()J
+}
+
+public final class com/lowbudgetlcs/riot4k/core/models/RateLimitConfig {
+	public fun <init> (IJD)V
+	public synthetic fun <init> (IJDILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()J
+	public final fun component3 ()D
+	public final fun copy (IJD)Lcom/lowbudgetlcs/riot4k/core/models/RateLimitConfig;
+	public static synthetic fun copy$default (Lcom/lowbudgetlcs/riot4k/core/models/RateLimitConfig;IJDILjava/lang/Object;)Lcom/lowbudgetlcs/riot4k/core/models/RateLimitConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBurstFactor ()D
+	public final fun getEffectiveLimit ()I
+	public final fun getLimit ()I
+	public final fun getWindowMs ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/lowbudgetlcs/riot4k/core/models/SystemClock : com/lowbudgetlcs/riot4k/core/models/Clock {
+	public fun <init> ()V
+	public fun nowMillis ()J
+}
+
+public final class com/lowbudgetlcs/riot4k/core/ratelimit/HeaderRateLimiter : com/lowbudgetlcs/riot4k/core/ratelimit/RateLimiter {
+	public static final field DEFAULT_RETRY_AFTER_MS J
+	public static final field MS_PER_SECOND J
+	public static final field STATUS_TOO_MANY_REQUESTS I
+	public fun <init> (Lcom/lowbudgetlcs/riot4k/core/models/Clock;DJ)V
+	public synthetic fun <init> (Lcom/lowbudgetlcs/riot4k/core/models/Clock;DJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun acquire (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun onResponse (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/lowbudgetlcs/riot4k/core/ratelimit/RateLimitEntry {
+	public fun <init> (II)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun copy (II)Lcom/lowbudgetlcs/riot4k/core/ratelimit/RateLimitEntry;
+	public static synthetic fun copy$default (Lcom/lowbudgetlcs/riot4k/core/ratelimit/RateLimitEntry;IIILjava/lang/Object;)Lcom/lowbudgetlcs/riot4k/core/ratelimit/RateLimitEntry;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCount ()I
+	public final fun getWindowSeconds ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/lowbudgetlcs/riot4k/core/ratelimit/RateLimitHeaders {
+	public static final field APP_RATE_LIMIT Ljava/lang/String;
+	public static final field INSTANCE Lcom/lowbudgetlcs/riot4k/core/ratelimit/RateLimitHeaders;
+	public static final field METHOD_RATE_LIMIT Ljava/lang/String;
+	public static final field RATE_LIMIT_TYPE Ljava/lang/String;
+	public static final field RETRY_AFTER Ljava/lang/String;
+	public final fun parse (Ljava/lang/String;)Ljava/util/List;
+}
+
+public abstract interface class com/lowbudgetlcs/riot4k/core/ratelimit/RateLimiter {
+	public abstract fun acquire (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun onResponse (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/lowbudgetlcs/riot4k/core/ratelimit/VectorTokenBucket {
+	public fun <init> (Lcom/lowbudgetlcs/riot4k/core/models/RateLimitConfig;J)V
+	public synthetic fun <init> (Lcom/lowbudgetlcs/riot4k/core/models/RateLimitConfig;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getCapacity (J)D
+	public final fun getDelay (J)J
+	public final fun getTokens (JI)V
+	public static synthetic fun getTokens$default (Lcom/lowbudgetlcs/riot4k/core/ratelimit/VectorTokenBucket;JIILjava/lang/Object;)V
+}
+
+public abstract class com/lowbudgetlcs/riot4k/core/result/RiotResult {
+}
+
+public final class com/lowbudgetlcs/riot4k/core/result/RiotResult$Failure : com/lowbudgetlcs/riot4k/core/result/RiotResult {
+	public fun <init> (Ljava/lang/Integer;ILjava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/Integer;ILjava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()I
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/Throwable;
+	public final fun copy (Ljava/lang/Integer;ILjava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)Lcom/lowbudgetlcs/riot4k/core/result/RiotResult$Failure;
+	public static synthetic fun copy$default (Lcom/lowbudgetlcs/riot4k/core/result/RiotResult$Failure;Ljava/lang/Integer;ILjava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;ILjava/lang/Object;)Lcom/lowbudgetlcs/riot4k/core/result/RiotResult$Failure;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCause ()Ljava/lang/Throwable;
+	public final fun getMessage ()Ljava/lang/String;
+	public final fun getRateLimitType ()Ljava/lang/String;
+	public final fun getRetries ()I
+	public final fun getStatusCode ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/lowbudgetlcs/riot4k/core/result/RiotResult$NotFound : com/lowbudgetlcs/riot4k/core/result/RiotResult {
+	public static final field INSTANCE Lcom/lowbudgetlcs/riot4k/core/result/RiotResult$NotFound;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/lowbudgetlcs/riot4k/core/result/RiotResult$Success : com/lowbudgetlcs/riot4k/core/result/RiotResult {
+	public fun <init> (Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;)Lcom/lowbudgetlcs/riot4k/core/result/RiotResult$Success;
+	public static synthetic fun copy$default (Lcom/lowbudgetlcs/riot4k/core/result/RiotResult$Success;Ljava/lang/Object;ILjava/lang/Object;)Lcom/lowbudgetlcs/riot4k/core/result/RiotResult$Success;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getData ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/lowbudgetlcs/riot4k/core/result/RiotResultKt {
+	public static final fun getOrNull (Lcom/lowbudgetlcs/riot4k/core/result/RiotResult;)Ljava/lang/Object;
+	public static final fun getOrThrow (Lcom/lowbudgetlcs/riot4k/core/result/RiotResult;)Ljava/lang/Object;
+}
+
+public final class com/lowbudgetlcs/riot4k/core/routes/PlatformRoute : java/lang/Enum, com/lowbudgetlcs/riot4k/core/routes/Route {
+	public static final field BR1 Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static final field EUN1 Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static final field EUW1 Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static final field JP1 Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static final field KR Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static final field LA1 Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static final field LA2 Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static final field ME1 Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static final field NA1 Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static final field OC1 Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static final field RU Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static final field SG2 Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static final field TR1 Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static final field TW2 Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static final field VN2 Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getRegional ()Lcom/lowbudgetlcs/riot4k/core/routes/RegionalRoute;
+	public fun getSubdomain ()Ljava/lang/String;
+	public final fun toRegional ()Lcom/lowbudgetlcs/riot4k/core/routes/RegionalRoute;
+	public static fun valueOf (Ljava/lang/String;)Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+	public static fun values ()[Lcom/lowbudgetlcs/riot4k/core/routes/PlatformRoute;
+}
+
+public final class com/lowbudgetlcs/riot4k/core/routes/RegionalRoute : java/lang/Enum, com/lowbudgetlcs/riot4k/core/routes/Route {
+	public static final field AMERICAS Lcom/lowbudgetlcs/riot4k/core/routes/RegionalRoute;
+	public static final field ASIA Lcom/lowbudgetlcs/riot4k/core/routes/RegionalRoute;
+	public static final field ESPORTS Lcom/lowbudgetlcs/riot4k/core/routes/RegionalRoute;
+	public static final field EUROPE Lcom/lowbudgetlcs/riot4k/core/routes/RegionalRoute;
+	public static final field SEA Lcom/lowbudgetlcs/riot4k/core/routes/RegionalRoute;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public fun getSubdomain ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lcom/lowbudgetlcs/riot4k/core/routes/RegionalRoute;
+	public static fun values ()[Lcom/lowbudgetlcs/riot4k/core/routes/RegionalRoute;
+}
+
+public abstract interface class com/lowbudgetlcs/riot4k/core/routes/Route {
+	public abstract fun getSubdomain ()Ljava/lang/String;
+}
+

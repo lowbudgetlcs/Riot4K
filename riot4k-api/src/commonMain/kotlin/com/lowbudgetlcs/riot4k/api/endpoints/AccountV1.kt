@@ -27,8 +27,6 @@ public class AccountV1 internal constructor(
         METHOD_GET_BY_RIOT_ID,
         "riot", "account", "v1", "accounts", "by-riot-id", gameName, tagLine,
     )
-
-    private companion object {
-        const val METHOD_GET_BY_RIOT_ID = "account-v1.getByRiotId"
-    }
 }
+
+private const val METHOD_GET_BY_RIOT_ID = "account-v1.getByRiotId"

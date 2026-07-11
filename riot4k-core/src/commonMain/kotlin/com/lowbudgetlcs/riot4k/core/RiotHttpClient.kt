@@ -46,7 +46,10 @@ public class RiotHttpClient(
             RiotResult.Success(outcome.response.body<T>())
         } catch (e: CancellationException) {
             throw e
-        } catch (e: Exception) {
+        } catch (
+            // Decode failures vary by engine and serializer; all become Failure values.
+            @Suppress("TooGenericExceptionCaught") e: Exception,
+        ) {
             RiotResult.Failure(
                 statusCode = outcome.response.status.value,
                 retries = outcome.retries,
@@ -73,12 +76,15 @@ public class RiotHttpClient(
             var cause: Throwable? = null
             val response: HttpResponse? = try {
                 httpClient.get(baseUrl) {
-                    url { appendPathSegments(*pathSegments) }
+                    url { appendPathSegments(pathSegments.toList()) }
                     header(RIOT_KEY_HEADER, config.apiKey)
                 }
             } catch (e: CancellationException) {
                 throw e
-            } catch (e: Exception) {
+            } catch (
+                // Transport failures vary by engine; all are treated as retryable.
+                @Suppress("TooGenericExceptionCaught") e: Exception,
+            ) {
                 cause = e
                 null
             }

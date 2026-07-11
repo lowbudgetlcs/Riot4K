@@ -1,0 +1,31 @@
+# Detekt configuration; rules build upon the bundled defaults
+# (buildUponDefaultConfig = true), only deviations are listed here.
+# The formatting ruleset (ktlint rules) comes from the detekt-formatting plugin.
+
+build:
+  maxIssues: 0
+
+style:
+  MaxLineLength:
+    maxLineLength: 120
+  MagicNumber:
+    ignoreNumbers: ['-1', '0', '1', '2']
+    ignorePropertyDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+    ignoreEnums: true
+    ignoreAnnotation: true
+  ReturnCount:
+    max: 4
+
+formatting:
+  MaximumLineLength:
+    maxLineLength: 120
+
+naming:
+  PackageNaming:
+    packagePattern: '[a-z]+(\.[a-z][A-Za-z0-9]*)*'
+
+complexity:
+  LongParameterList:
+    functionThreshold: 7
+    constructorThreshold: 7

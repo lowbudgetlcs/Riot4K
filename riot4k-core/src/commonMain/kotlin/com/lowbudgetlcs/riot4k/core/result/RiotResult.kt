@@ -38,11 +38,14 @@ public fun <T> RiotResult<T>.getOrNull(): T? = when (this) {
 /** [T] on success; throws [RiotApiException] on [RiotResult.NotFound] and failure. */
 public fun <T> RiotResult<T>.getOrThrow(): T = when (this) {
     is RiotResult.Success -> data
-    is RiotResult.NotFound -> throw RiotApiException("Resource not found", statusCode = 404, retries = 0)
+    is RiotResult.NotFound -> throw RiotApiException("Resource not found", STATUS_NOT_FOUND, retries = 0)
     is RiotResult.Failure -> throw toException()
 }
 
 private fun RiotResult.Failure.toException(): RiotApiException = when (statusCode) {
-    429 -> RiotRateLimitException(message, retries, rateLimitType, cause)
+    STATUS_TOO_MANY_REQUESTS -> RiotRateLimitException(message, retries, rateLimitType, cause)
     else -> RiotApiException(message, statusCode, retries, cause)
 }
+
+private const val STATUS_NOT_FOUND = 404
+private const val STATUS_TOO_MANY_REQUESTS = 429

@@ -65,9 +65,8 @@ class RiotHttpClientTest {
             )
             respond("""{"puuid":"abc","extraField":42}""", HttpStatusCode.OK, jsonHeaders)
         }
-        val result = client.get<TestDto>(
-            RegionalRoute.AMERICAS, "test.method", "riot", "account", "v1", "accounts", "abc",
-        )
+        val result =
+            client.get<TestDto>(RegionalRoute.AMERICAS, "test.method", "riot", "account", "v1", "accounts", "abc")
         assertEquals(RiotResult.Success(TestDto("abc")), result)
     }
 
@@ -174,7 +173,7 @@ class RiotHttpClientTest {
         var requests = 0
         val client = client(maxRetries = 2) { _ ->
             requests++
-            throw RuntimeException("connection reset")
+            error("connection reset")
         }
         val result = client.get<TestDto>(RegionalRoute.AMERICAS, "test.method", "x")
         val failure = assertIs<RiotResult.Failure>(result)
