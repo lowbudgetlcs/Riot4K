@@ -66,3 +66,47 @@ jobs:
       run: ./gradlew apiCheck
     - name: Dokka generation check
       run: ./gradlew dokkaGenerate
+
+  samples:
+    name: Samples (jvm, android, js, linux)
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Validate Gradle Wrapper
+      uses: gradle/actions/wrapper-validation@v4
+    - name: Cache Kotlin/Native toolchain
+      uses: actions/cache@v4
+      with:
+        path: ~/.konan
+        key: ${{ runner.os }}-konan-${{ hashFiles('gradle/libs.versions.toml') }}
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@v4
+    - name: Build samples
+      run: ./gradlew -p samples :jvm-sample:build :android-sample:assembleDebug :js-sample:build :linux-sample:build
+
+  samples-ios:
+    name: Samples (ios framework)
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Validate Gradle Wrapper
+      uses: gradle/actions/wrapper-validation@v4
+    - name: Cache Kotlin/Native toolchain
+      uses: actions/cache@v4
+      with:
+        path: ~/.konan
+        key: ${{ runner.os }}-konan-${{ hashFiles('gradle/libs.versions.toml') }}
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@v4
+    - name: Link iOS sample framework
+      run: ./gradlew -p samples :ios-sample:linkDebugFrameworkIosSimulatorArm64
