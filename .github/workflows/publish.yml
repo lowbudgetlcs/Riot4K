@@ -29,7 +29,22 @@ jobs:
         distribution: 'temurin'
     - name: Set up Gradle
       uses: gradle/actions/setup-gradle@v4
+    - name: Check publishing credentials
+      id: creds
+      env:
+        USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+      run: |
+        if [ -n "${USERNAME}" ]; then
+          echo "present=true" >> "${GITHUB_OUTPUT}"
+        elif [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+          echo "Maven Central credentials are required for tagged releases" >&2
+          exit 1
+        else
+          echo "present=false" >> "${GITHUB_OUTPUT}"
+          echo "::notice::Skipping snapshot publish; Maven Central credentials are not configured"
+        fi
     - name: Determine version
+      if: steps.creds.outputs.present == 'true'
       id: version
       run: |
         if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
@@ -38,6 +53,7 @@ jobs:
           echo "gradle_args=" >> "${GITHUB_OUTPUT}"
         fi
     - name: Publish
+      if: steps.creds.outputs.present == 'true'
       run: ./gradlew ${{ steps.version.outputs.gradle_args }} publishToMavenCentral --no-configuration-cache
       env:
         ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
