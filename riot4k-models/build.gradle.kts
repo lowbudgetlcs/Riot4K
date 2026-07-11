@@ -16,7 +16,6 @@ kotlin {
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
-        withJava() // enable java compilation support
         withHostTestBuilder {}.configure {}
         withDeviceTestBuilder {
             sourceSetTreeName = "test"
@@ -43,7 +42,10 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.kotlinx.serialization.json)
+            // @Serializable models expose serialization types to consumers.
+            api(libs.kotlinx.serialization.json)
         }
     }
+
+    explicitApi()
 }

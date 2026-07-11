@@ -12,11 +12,23 @@ We wish to be the *first and only* Riot library capable of sharing logic. Truly 
 
 We want to enable high-traffic applications by properly applying Coroutines.
 
+## Usage
+
+```kotlin
+val riot4k = Riot4K.create(apiKey)
+
+when (val account = riot4k.accountV1().getByRiotId(RegionalRoute.AMERICAS, "gameName", "tagLine")) {
+    is RiotResult.Success -> println("puuid: ${account.data.puuid}")
+    is RiotResult.NotFound -> println("No such riot ID")
+    is RiotResult.Failure -> println("Request failed with status ${account.statusCode}")
+}
+```
+
 ## Compatibility
 
 | API Endpoint          | Game                  | JVM | Android | iOS | Linux | JS |
 | --------------------- | --------------------- | --- | ------- | --- | ----- | -- |
-| `account-v1`          | Riftbound RSO         | ❌  | ❌      | ❌  | ❌    | ❌  |
+| `account-v1`          | Riftbound RSO         | ✅  | ✅      | ✅  | ✅    | ✅  |
 | `champion-mastery-v4` | League of Legends     | ❌  | ❌      | ❌  | ❌    | ❌  |
 | `champion-v3`         | League of Legends     | ❌  | ❌      | ❌  | ❌    | ❌  |
 | `clash-v1`            | League of Legends     | ❌  | ❌      | ❌  | ❌    | ❌  |

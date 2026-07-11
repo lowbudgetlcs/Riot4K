@@ -15,7 +15,6 @@ kotlin {
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
-        withJava() // enable java compilation support
         withHostTestBuilder {}.configure {}
         withDeviceTestBuilder {
             sourceSetTreeName = "test"
@@ -42,14 +41,21 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            // the consumer NEEDS to see the models, so we use api
+            // Models and core types (routes, config, RiotResult) appear in
+            // public signatures, so consumers need to see both.
             api(project(":riot4k-models"))
+            api(project(":riot4k-core"))
+        }
 
-            // The engine is an internal detail, so we use implementation
-            implementation(project(":riot4k-core"))
-
-            // Other dependencies for this module
-            implementation(libs.kotlinx.coroutines.core)
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.ktor.client.mock)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
         }
     }
+
+    explicitApi()
 }
