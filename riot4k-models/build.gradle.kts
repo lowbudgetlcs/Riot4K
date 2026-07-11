@@ -4,10 +4,8 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.kotlin.plugin.serialization)
+    alias(libs.plugins.vanniktech.mavenPublish)
 }
-
-group = "com.lowbudgetlcs"
-version = "0.1.0"
 
 kotlin {
     jvm()

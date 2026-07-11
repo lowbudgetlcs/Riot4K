@@ -1,3 +1,4 @@
+import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
@@ -23,6 +24,44 @@ dependencies {
 
 subprojects {
     apply(plugin = "org.jetbrains.dokka")
+
+    plugins.withId("com.vanniktech.maven.publish") {
+        configure<MavenPublishBaseExtension> {
+            publishToMavenCentral()
+            // Signing credentials are provided via ORG_GRADLE_PROJECT_signingInMemoryKey*
+            // environment variables in CI; local publishing skips signing when absent.
+            if (providers.environmentVariable("ORG_GRADLE_PROJECT_signingInMemoryKey").isPresent) {
+                signAllPublications()
+            }
+            coordinates(group.toString(), project.name, version.toString())
+
+            pom {
+                name = project.name
+                description = "Kotlin Multiplatform SDK for the Riot Games API"
+                inceptionYear = "2025"
+                url = "https://github.com/lowbudgetlcs/Riot4K"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                        distribution = "repo"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "zainaraza43"
+                        name = "Zain Raza"
+                        url = "https://github.com/zainaraza43"
+                    }
+                }
+                scm {
+                    url = "https://github.com/lowbudgetlcs/Riot4K"
+                    connection = "scm:git:git://github.com/lowbudgetlcs/Riot4K.git"
+                    developerConnection = "scm:git:ssh://git@github.com/lowbudgetlcs/Riot4K.git"
+                }
+            }
+        }
+    }
 }
 
 allprojects {

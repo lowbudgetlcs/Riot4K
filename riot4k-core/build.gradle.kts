@@ -8,9 +8,6 @@ plugins {
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 
-group = "com.lowbudgetlcs"
-version = "0.1.0"
-
 kotlin {
     jvm()
     androidLibrary {
@@ -80,36 +77,3 @@ kotlin {
     explicitApi()
 }
 
-mavenPublishing {
-    publishToMavenCentral()
-
-    // signAllPublications()
-
-    coordinates(group.toString(), "riot4k", version.toString())
-
-    pom {
-        name = "riot4k"
-        description = "A Riot API SDK"
-        inceptionYear = "2025"
-        url = "https://github.com/lowbudgetlcs/riot4k"
-        licenses {
-            license {
-                name = "XXX"
-                url = "YYY"
-                distribution = "ZZZ"
-            }
-        }
-        developers {
-            developer {
-                id = "XXX"
-                name = "YYY"
-                url = "ZZZ"
-            }
-        }
-        scm {
-            url = "XXX"
-            connection = "YYY"
-            developerConnection = "ZZZ"
-        }
-    }
-}
