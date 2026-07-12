@@ -14,6 +14,8 @@ We want to enable high-traffic applications by properly applying Coroutines.
 
 ## Usage
 
+### Kotlin
+
 ```kotlin
 val riot4k = Riot4K.create(apiKey)
 
@@ -21,6 +23,48 @@ when (val account = riot4k.accountV1().getByRiotId(RegionalRoute.AMERICAS, "game
     is RiotResult.Success -> println("puuid: ${account.data.puuid}")
     is RiotResult.NotFound -> println("No such riot ID")
     is RiotResult.Failure -> println("Request failed with status ${account.statusCode}")
+}
+```
+
+### Java
+
+Every endpoint has a `CompletableFuture` variant on `Riot4KAsync`; results stay
+typed values you can pattern-match. See [`samples/java-sample`](samples/java-sample).
+
+```java
+try (var riot4k = Riot4KAsync.create(apiKey)) {
+    var result = riot4k.accountV1().getByRiotIdAsync(RegionalRoute.AMERICAS, "gameName", "tagLine").join();
+    if (result instanceof RiotResult.Success<AccountDto> success) {
+        System.out.println(success.getData().getPuuid());
+    }
+}
+```
+
+### TypeScript / JavaScript
+
+The JS distribution ships Promise-based classes with generated TypeScript
+definitions; results are tagged objects. See [`samples/ts-sample`](samples/ts-sample).
+
+```ts
+const riot4k = new Riot4KJs(apiKey);
+const result = await riot4k.accountV1().getByRiotId("AMERICAS", "gameName", "tagLine");
+if (result.type === "success") console.log(result.account?.puuid);
+riot4k.close();
+```
+
+### Swift
+
+Build the XCFramework with `./gradlew :riot4k-api:assembleRiot4KReleaseXCFramework`
+and add it to your project (SPM `binaryTarget` or direct embed); suspend
+functions import as `async`, and results switch exhaustively. See
+[`samples/swift-sample`](samples/swift-sample).
+
+```swift
+let result = try await riot4k.accountV1().getByRiotId(route: .americas, gameName: "gameName", tagLine: "tagLine")
+switch onEnum(of: result) {
+case .success(let success): print(success.data)
+case .notFound: print("No such riot ID")
+case .failure(let failure): print(failure.message)
 }
 ```
 
