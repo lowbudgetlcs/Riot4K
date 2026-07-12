@@ -10,6 +10,8 @@ kotlinx-serialization = "1.9.0"
 detekt = "1.23.8"
 binaryCompatibilityValidator = "0.18.1"
 dokka = "2.1.0"
+# SKIE releases gate on exact Kotlin versions; keep pinned and bump alongside Kotlin.
+skie = "0.10.13"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -38,3 +40,4 @@ kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization"
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatibilityValidator" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+skie = { id = "co.touchlab.skie", version.ref = "skie" }

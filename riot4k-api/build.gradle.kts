@@ -1,9 +1,14 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.vanniktech.mavenPublish)
+    // Swift-facing ergonomics (sealed classes as exhaustive Swift enums, structured
+    // concurrency for suspend functions). Applies only to Apple framework linking;
+    // remove this single line to ship a plain framework.
+    alias(libs.plugins.skie)
 }
 
 kotlin {
@@ -26,11 +31,23 @@ kotlin {
             }
         }
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    macosArm64()
-    macosX64()
+    val xcf = XCFramework("Riot4K")
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64(),
+        macosArm64(),
+        macosX64(),
+    ).forEach { target ->
+        target.binaries.framework {
+            baseName = "Riot4K"
+            isStatic = true
+            // Consumers see the full API surface (routes, config, RiotResult, DTOs).
+            export(project(":riot4k-core"))
+            export(project(":riot4k-models"))
+            xcf.add(this)
+        }
+    }
     linuxX64()
     js(IR) {
         browser()
