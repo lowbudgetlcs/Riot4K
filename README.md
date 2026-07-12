@@ -46,6 +46,24 @@ for Kotlin, Java, TypeScript, and Swift.
 - Anyone who wants Riot API plumbing to be **someone else's problem**, so they
   can focus on what to do with the data.
 
+## Performance
+
+The throughput of any Riot API client is bounded by one thing: **how fully it
+spends your rate limit without tripping it**. Riot4K's limiter is built to hit
+that ceiling — it learns your app and per-method limits from live response
+headers, tracks every window with sliding-window buckets, and ships two tuned
+presets: *burst* (spend up to 99% of a window immediately, for latency-critical
+lookups) and *throughput* (pace requests evenly, for sustained pipelines that
+must never see a 429).
+
+Under the hood every call is non-blocking end to end: a coroutine core over
+OkHttp, Darwin, and Node engines means thousands of concurrent in-flight
+lookups cost a handful of threads — including through the Java
+`CompletableFuture` surface, which fronts the same non-blocking core rather
+than a thread-per-request pool. There is no mandatory caching pipeline or
+per-call indirection between your code and the wire: a request is a routed,
+rate-limited HTTP call and a typed decode, nothing more.
+
 ## Usage
 
 ### Kotlin
