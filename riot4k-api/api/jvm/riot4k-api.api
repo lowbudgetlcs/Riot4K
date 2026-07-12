@@ -14,3 +14,20 @@ public final class com/lowbudgetlcs/riot4k/api/endpoints/AccountV1 {
 	public final fun getByRiotId (Lcom/lowbudgetlcs/riot4k/core/routes/RegionalRoute;Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
+public final class com/lowbudgetlcs/riot4k/api/java/AccountV1Async {
+	public final fun getByRiotIdAsync (Lcom/lowbudgetlcs/riot4k/core/routes/RegionalRoute;Ljava/lang/String;Ljava/lang/String;)Ljava/util/concurrent/CompletableFuture;
+}
+
+public final class com/lowbudgetlcs/riot4k/api/java/Riot4KAsync : java/lang/AutoCloseable {
+	public static final field Companion Lcom/lowbudgetlcs/riot4k/api/java/Riot4KAsync$Companion;
+	public fun <init> (Lcom/lowbudgetlcs/riot4k/api/Riot4K;)V
+	public fun <init> (Lcom/lowbudgetlcs/riot4k/core/config/Riot4KConfig;)V
+	public final fun accountV1 ()Lcom/lowbudgetlcs/riot4k/api/java/AccountV1Async;
+	public fun close ()V
+	public static final fun create (Ljava/lang/String;)Lcom/lowbudgetlcs/riot4k/api/java/Riot4KAsync;
+}
+
+public final class com/lowbudgetlcs/riot4k/api/java/Riot4KAsync$Companion {
+	public final fun create (Ljava/lang/String;)Lcom/lowbudgetlcs/riot4k/api/java/Riot4KAsync;
+}
+
