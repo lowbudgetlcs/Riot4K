@@ -81,7 +81,7 @@ when (val account = riot4k.accountV1().getByRiotId(RegionalRoute.AMERICAS, "game
 ### Java
 
 Every endpoint has a `CompletableFuture` variant on `Riot4KAsync`; results stay
-typed values you can pattern-match. See [`samples/java-sample`](samples/java-sample).
+typed values you can pattern-match. See [`samples/languages/java`](samples/languages/java).
 
 ```java
 try (var riot4k = Riot4KAsync.create(apiKey)) {
@@ -95,7 +95,7 @@ try (var riot4k = Riot4KAsync.create(apiKey)) {
 ### TypeScript / JavaScript
 
 The JS distribution ships Promise-based classes with generated TypeScript
-definitions; results are tagged objects. See [`samples/ts-sample`](samples/ts-sample).
+definitions; results are tagged objects. See [`samples/languages/typescript`](samples/languages/typescript).
 
 ```ts
 const riot4k = new Riot4KJs(apiKey);
@@ -109,7 +109,7 @@ riot4k.close();
 Build the XCFramework with `./gradlew :riot4k-api:assembleRiot4KSDKReleaseXCFramework`
 and add it to your project (SPM `binaryTarget` or direct embed); suspend
 functions import as `async`, and results switch exhaustively. See
-[`samples/swift-sample`](samples/swift-sample).
+[`samples/languages/swift`](samples/languages/swift).
 
 ```swift
 let result = try await riot4k.accountV1().getByRiotId(route: .americas, gameName: "gameName", tagLine: "tagLine")

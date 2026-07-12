@@ -25,9 +25,21 @@ rootProject.name = "riot4k-samples"
 includeBuild("..")
 
 include(":mock-riot-server")
-include(":jvm-sample")
-include(":java-sample")
-include(":android-sample")
-include(":js-sample")
-include(":linux-sample")
-include(":ios-sample")
+
+// Platform samples: the same Kotlin consumer on every platform the SDK ships to.
+include(":jvm")
+include(":android")
+include(":nodejs")
+include(":linux")
+include(":ios")
+project(":jvm").projectDir = file("platforms/jvm")
+project(":android").projectDir = file("platforms/android")
+project(":nodejs").projectDir = file("platforms/nodejs")
+project(":linux").projectDir = file("platforms/linux")
+project(":ios").projectDir = file("platforms/ios")
+
+// Language samples: other languages consuming the SDK's distribution artifacts.
+// TypeScript (languages/typescript) and Swift (languages/swift) are not Gradle
+// projects; they build with npm and SwiftPM respectively.
+include(":java")
+project(":java").projectDir = file("languages/java")

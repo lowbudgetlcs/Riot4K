@@ -1,0 +1,20 @@
+{
+  "name": "riot4k-ts-sample",
+  "private": true,
+  "type": "module",
+  "description": "TypeScript consumer of the Riot4K SDK's JavaScript distribution",
+  "dependencies": {
+    "riot4k-api": "file:../../../riot4k-api/build/dist/js/productionLibrary"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0",
+    "vitest": "^3.0.0"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "live": "tsx src/live.ts"
+  }
+}

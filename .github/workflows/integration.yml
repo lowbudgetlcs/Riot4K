@@ -44,17 +44,17 @@ jobs:
       with:
         node-version: 22
     - name: JVM sample
-      run: ./gradlew -p samples :jvm-sample:run
+      run: ./gradlew -p samples :jvm:run
       env:
         RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }}
     - name: Java sample
-      run: ./gradlew -p samples :java-sample:run
+      run: ./gradlew -p samples :java:run
       env:
         RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }}
     - name: TypeScript sample
-      working-directory: samples/ts-sample
+      working-directory: samples/languages/typescript
       run: |
-        ../../gradlew :riot4k-api:jsNodeProductionLibraryDistribution
+        ../../../gradlew :riot4k-api:jsNodeProductionLibraryDistribution
         npm ci
         npm run live
       env:

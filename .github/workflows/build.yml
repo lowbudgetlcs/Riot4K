@@ -94,14 +94,14 @@ jobs:
       run: >
         ./gradlew -p samples
         :mock-riot-server:build
-        :jvm-sample:build
-        :java-sample:build
-        :android-sample:assembleDebug
-        :android-sample:testDebugUnitTest
-        :js-sample:build
-        :js-sample:jsTest
-        :linux-sample:build
-        :linux-sample:linuxX64Test
+        :jvm:build
+        :java:build
+        :android:assembleDebug
+        :android:testDebugUnitTest
+        :nodejs:build
+        :nodejs:jsTest
+        :linux:build
+        :linux:linuxX64Test
 
   samples-ts:
     name: Samples (typescript)
@@ -126,7 +126,7 @@ jobs:
     - name: Build mock server
       run: ./gradlew -p samples :mock-riot-server:installDist
     - name: Install, typecheck, test
-      working-directory: samples/ts-sample
+      working-directory: samples/languages/typescript
       run: |
         npm ci
         npm run typecheck
@@ -152,7 +152,7 @@ jobs:
     - name: Set up Gradle
       uses: gradle/actions/setup-gradle@v4
     - name: Link iOS sample framework
-      run: ./gradlew -p samples :ios-sample:linkDebugFrameworkIosSimulatorArm64
+      run: ./gradlew -p samples :ios:linkDebugFrameworkIosSimulatorArm64
     - name: Assemble Riot4K XCFramework
       run: ./gradlew :riot4k-api:assembleRiot4KSDKReleaseXCFramework
     - name: Build mock server
@@ -160,7 +160,7 @@ jobs:
     - name: Start mock server
       run: samples/scripts/mock-server.sh start
     - name: Swift contract tests
-      run: swift test --package-path samples/swift-sample
+      run: swift test --package-path samples/languages/swift
     - name: Stop mock server
       if: always()
       run: samples/scripts/mock-server.sh stop
