@@ -1,5 +1,5 @@
 import Foundation
-import Riot4K
+import Riot4KSDK
 
 /// Application-level outcome of an account lookup.
 public enum AccountLookup: Equatable {
@@ -24,7 +24,7 @@ public final class AccountRepository {
 
     public func lookup(gameName: String, tagLine: String) async throws -> AccountLookup {
         let result = try await riot4k.accountV1().getByRiotId(
-            route: .americas,
+            route: RegionalRoute.americas,
             gameName: gameName,
             tagLine: tagLine
         )

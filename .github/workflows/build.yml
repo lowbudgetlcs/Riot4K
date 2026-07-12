@@ -154,7 +154,7 @@ jobs:
     - name: Link iOS sample framework
       run: ./gradlew -p samples :ios-sample:linkDebugFrameworkIosSimulatorArm64
     - name: Assemble Riot4K XCFramework
-      run: ./gradlew :riot4k-api:assembleRiot4KReleaseXCFramework
+      run: ./gradlew :riot4k-api:assembleRiot4KSDKReleaseXCFramework
     - name: Build mock server
       run: ./gradlew -p samples :mock-riot-server:installDist
     - name: Start mock server

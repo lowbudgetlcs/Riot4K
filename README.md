@@ -106,7 +106,7 @@ riot4k.close();
 
 ### Swift
 
-Build the XCFramework with `./gradlew :riot4k-api:assembleRiot4KReleaseXCFramework`
+Build the XCFramework with `./gradlew :riot4k-api:assembleRiot4KSDKReleaseXCFramework`
 and add it to your project (SPM `binaryTarget` or direct embed); suspend
 functions import as `async`, and results switch exhaustively. See
 [`samples/swift-sample`](samples/swift-sample).

@@ -31,7 +31,10 @@ kotlin {
             }
         }
     }
-    val xcf = XCFramework("Riot4K")
+    // The framework module is named Riot4KSDK (not Riot4K) so the Riot4K entry
+    // class stays directly referencable from Swift; a module and a type sharing
+    // a name forces consumers to fully qualify every use.
+    val xcf = XCFramework("Riot4KSDK")
     listOf(
         iosX64(),
         iosArm64(),
@@ -40,7 +43,7 @@ kotlin {
         macosX64(),
     ).forEach { target ->
         target.binaries.framework {
-            baseName = "Riot4K"
+            baseName = "Riot4KSDK"
             isStatic = true
             // Consumers see the full API surface (routes, config, RiotResult, DTOs).
             export(project(":riot4k-core"))
