@@ -23,8 +23,10 @@ start() {
   FIXTURES_DIR="$SAMPLES_DIR/fixtures" "$INSTALL_BIN" --port=0 > "$LOG_FILE" 2>&1 &
   echo $! > "$PID_FILE"
 
-  for _ in $(seq 1 100); do
-    if port=$(grep -m1 -oP 'MOCK_RIOT_SERVER_PORT=\K[0-9]+' "$LOG_FILE" 2>/dev/null); then
+  for _ in $(seq 1 300); do
+    # BSD-compatible extraction (macOS grep has no -P).
+    port=$(sed -n 's/^MOCK_RIOT_SERVER_PORT=\([0-9][0-9]*\)$/\1/p' "$LOG_FILE" 2>/dev/null | head -n1)
+    if [[ -n "${port:-}" ]]; then
       echo "$port" > "$PORT_FILE"
       echo "MOCK_RIOT_PORT=$port"
       if [[ -n "${GITHUB_ENV:-}" ]]; then
