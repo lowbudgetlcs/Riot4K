@@ -26,3 +26,36 @@ jobs:
       run: ./gradlew :riot4k-api:jvmTest --tests '*IntegrationTest' --rerun
       env:
         RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }}
+
+  live-samples:
+    name: Samples against the live API
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@v4
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: JVM sample
+      run: ./gradlew -p samples :jvm-sample:run
+      env:
+        RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }}
+    - name: Java sample
+      run: ./gradlew -p samples :java-sample:run
+      env:
+        RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }}
+    - name: TypeScript sample
+      working-directory: samples/ts-sample
+      run: |
+        ../../gradlew :riot4k-api:jsNodeProductionLibraryDistribution
+        npm ci
+        npm run live
+      env:
+        RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }}
