@@ -24,6 +24,7 @@ rootProject.name = "riot4k-samples"
 // build substitutes com.lowbudgetlcs:riot4k-* dependencies with the local modules.
 includeBuild("..")
 
+include(":mock-riot-server")
 include(":jvm-sample")
 include(":android-sample")
 include(":js-sample")
