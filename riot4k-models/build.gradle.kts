@@ -34,6 +34,8 @@ kotlin {
     macosX64()
     linuxX64()
     js(IR) {
+        outputModuleName.set("riot4k-models")
+        useEsModules()
         browser()
         nodejs()
         binaries.library()

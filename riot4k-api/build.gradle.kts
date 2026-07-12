@@ -50,6 +50,8 @@ kotlin {
     }
     linuxX64()
     js(IR) {
+        outputModuleName.set("riot4k-api")
+        useEsModules()
         browser()
         nodejs()
         binaries.library()
