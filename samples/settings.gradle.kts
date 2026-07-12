@@ -26,6 +26,7 @@ includeBuild("..")
 
 include(":mock-riot-server")
 include(":jvm-sample")
+include(":java-sample")
 include(":android-sample")
 include(":js-sample")
 include(":linux-sample")
