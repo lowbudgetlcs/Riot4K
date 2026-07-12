@@ -1,16 +1,50 @@
 # Riot4K
 
-## Disclaimer
+[![Build](https://github.com/lowbudgetlcs/Riot4K/actions/workflows/build.yml/badge.svg)](https://github.com/lowbudgetlcs/Riot4K/actions/workflows/build.yml)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-This project is in early development stages, **use at your own risk**.
+**One Riot Games API client for every platform you ship.**
 
-## Our Goals
+Riot4K is a Kotlin Multiplatform SDK built for *consistency*, *throughput*, and
+*correctness*: the same client, the same rate limiter, and the same typed results
+on the JVM, Android, iOS, macOS, Linux, and JavaScript — with idiomatic surfaces
+for Kotlin, Java, TypeScript, and Swift.
 
-We aim for Riot4k to be a modern, type-safe, and asynchronous Riot Games API SDK, built entirely in Kotlin.
+## Why Riot4K
 
-We wish to be the *first and only* Riot library capable of sharing logic. Truly write once, run everywhere. No more writing separate API clients for the app and the server - or even worse, picking up different libraries of varying qualities.
+- **Write once, run everywhere.** Your match-history logic shouldn't behave one
+  way in the backend and another way in the app. One codebase serves your
+  server, your website, and your mobile apps — no more stitching together
+  per-language API clients of varying quality.
+- **Rate limiting that just works.** Riot4K learns your app and per-method
+  limits live from Riot's response headers and enforces both tiers with
+  sliding-window buckets. Choose the *burst* preset for latency or *throughput*
+  for sustained load; `Retry-After` is always honored. Your key stays healthy
+  under fire.
+- **Errors are values, in every language.** A missing player is `NotFound`, not
+  an exception. Results arrive as a sealed type in Kotlin, a pattern-matchable
+  value in Java, a discriminated union in TypeScript, and an exhaustively
+  switchable enum in Swift — the compiler makes sure you handled every case.
+- **Built for production.** Only 429s, 5xx and transport errors are retried;
+  everything else fails fast and typed. The public API is compiler-enforced
+  explicit, every release is binary-compatibility-checked, and the whole
+  codebase passes a zero-warning lint gate.
+- **Proven in every language, on every change.** A cross-language contract
+  suite runs the same scenarios through the real HTTP engines — OkHttp, Darwin,
+  Node — from Kotlin, Java, TypeScript, and Swift test suites on every pull
+  request. If a binding would break, CI knows before you do.
+- **Coroutine-first.** Suspend functions end to end, safe to hammer from
+  thousands of concurrent coroutines — they surface as `CompletableFuture` in
+  Java, `Promise` in JS, and `async` in Swift.
 
-We want to enable high-traffic applications by properly applying Coroutines.
+## Who it's for
+
+- Teams running a **stack**, not a script: a JVM backend, a web frontend, and
+  mobile apps that should all see identical Riot data semantics.
+- **High-traffic tools** — stats sites, tournament platforms, coaching apps —
+  that need to squeeze a rate limit without tripping it.
+- Anyone who wants Riot API plumbing to be **someone else's problem**, so they
+  can focus on what to do with the data.
 
 ## Usage
 
@@ -68,7 +102,20 @@ case .failure(let failure): print(failure.message)
 }
 ```
 
+Complete, tested example projects for all eight platforms live in
+[`samples/`](samples/README.md).
+
+## Installation
+
+Riot4K is in **early development** and not yet published to Maven Central —
+the first release lands there as `com.lowbudgetlcs:riot4k-api`. Until then,
+consume it from source (`includeBuild`, as the [samples](samples/README.md) do)
+or watch the repo for the `v0.1.0` release.
+
 ## Compatibility
+
+Endpoint coverage is expanding; account-v1 is the reference implementation and
+the remaining endpoints follow via schema-driven generation.
 
 | API Endpoint          | Game                  | JVM | Android | iOS | macOS | Linux | JS |
 | --------------------- | --------------------- | --- | ------- | --- | ----- | ----- | -- |
@@ -98,8 +145,17 @@ case .failure(let failure): print(failure.message)
 | `tournament-stub-v5`  | League of Legends     | ❌  | ❌      | ❌  | ❌    | ❌    | ❌  |
 | `tournament-v5`       | League of Legends Tournaments | ❌  | ❌      | ❌  | ❌    | ❌    | ❌  |
 | `val-console-match-v1`| VALORANT              | ❌  | ❌      | ❌  | ❌    | ❌    | ❌  |
-| `val-console-ranked-v1`| VALORANT              | ❌  | ❌      | ❌  | ❌    | ❌    | ❌  |
+| `val-console-ranked-v1`| VALORANT             | ❌  | ❌      | ❌  | ❌    | ❌    | ❌  |
 | `val-content-v1`      | VALORANT              | ❌  | ❌      | ❌  | ❌    | ❌    | ❌  |
 | `val-match-v1`        | VALORANT              | ❌  | ❌      | ❌  | ❌    | ❌    | ❌  |
 | `val-ranked-v1`       | VALORANT              | ❌  | ❌      | ❌  | ❌    | ❌    | ❌  |
 | `val-status-v1`       | VALORANT              | ❌  | ❌      | ❌  | ❌    | ❌    | ❌  |
+
+## Disclaimer
+
+Riot4K is in early development — expect the API to evolve between releases.
+
+Riot4K isn't endorsed by Riot Games and doesn't reflect the views or opinions of
+Riot Games or anyone officially involved in producing or managing Riot Games
+properties. Riot Games, and all associated properties are trademarks or
+registered trademarks of Riot Games, Inc.
