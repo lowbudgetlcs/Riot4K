@@ -28,6 +28,12 @@ android {
         buildConfig = true
     }
 
+    testOptions {
+        unitTests.all {
+            it.systemProperty("fixturesDir", rootDir.resolve("fixtures").absolutePath)
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -43,4 +49,10 @@ kotlin {
 dependencies {
     implementation("com.lowbudgetlcs:riot4k-api:0.1.0-SNAPSHOT")
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.activity.ktx)
+
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(project(":mock-riot-server"))
 }

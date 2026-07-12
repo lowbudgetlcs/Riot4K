@@ -1,7 +1,6 @@
 package com.lowbudgetlcs.riot4k.samples.linux
 
 import com.lowbudgetlcs.riot4k.api.Riot4K
-import com.lowbudgetlcs.riot4k.core.result.RiotResult
 import com.lowbudgetlcs.riot4k.core.routes.RegionalRoute
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toKString
@@ -21,15 +20,13 @@ fun main(args: Array<String>) {
     val tagLine = args.getOrElse(1) { "KR1" }
 
     val riot4k = Riot4K.create(apiKey)
+    val repository = AccountRepository(riot4k)
     try {
         runBlocking {
-            when (val result = riot4k.accountV1().getByRiotId(RegionalRoute.AMERICAS, gameName, tagLine)) {
-                is RiotResult.Success ->
-                    println("$gameName#$tagLine -> puuid=${result.data.puuid}")
-                is RiotResult.NotFound ->
-                    println("No account with riot ID $gameName#$tagLine")
-                is RiotResult.Failure ->
-                    println("Request failed (status=${result.statusCode}, retries=${result.retries}): ${result.message}")
+            when (val lookup = repository.lookup(RegionalRoute.AMERICAS, gameName, tagLine)) {
+                is AccountLookup.Found -> println("${lookup.riotId} -> puuid=${lookup.puuid}")
+                is AccountLookup.Missing -> println("No account with riot ID $gameName#$tagLine")
+                is AccountLookup.Error -> println("Lookup failed: ${lookup.message}")
             }
         }
     } finally {

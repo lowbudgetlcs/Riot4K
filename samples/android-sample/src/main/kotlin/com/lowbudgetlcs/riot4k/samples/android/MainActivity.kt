@@ -1,24 +1,29 @@
 package com.lowbudgetlcs.riot4k.samples.android
 
-import android.app.Activity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.activity.ComponentActivity
+import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.lowbudgetlcs.riot4k.api.Riot4K
-import com.lowbudgetlcs.riot4k.core.result.RiotResult
-import com.lowbudgetlcs.riot4k.core.routes.RegionalRoute
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 /**
- * Looks up a riot ID on launch and shows the result.
+ * Looks up a riot ID on launch and renders the ViewModel's state.
  *
  * The API key is injected at build time from the RIOT_API_KEY environment
  * variable (see build.gradle.kts); rebuild with it set to try the sample.
  */
-class MainActivity : Activity() {
-    private val scope = MainScope()
+class MainActivity : ComponentActivity() {
     private var riot4k: Riot4K? = null
+
+    private val viewModel: AccountViewModel by viewModels {
+        AccountViewModel.factory {
+            RiotAccountRepository(
+                Riot4K.create(BuildConfig.RIOT_API_KEY).also { riot4k = it },
+            )
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,25 +35,24 @@ class MainActivity : Activity() {
             return
         }
 
-        val client = Riot4K.create(BuildConfig.RIOT_API_KEY)
-        riot4k = client
-        val gameName = "Hide on bush"
-        val tagLine = "KR1"
-
-        view.text = "Looking up $gameName#$tagLine..."
-        scope.launch {
-            view.text = when (val result =
-                client.accountV1().getByRiotId(RegionalRoute.AMERICAS, gameName, tagLine)) {
-                is RiotResult.Success -> "$gameName#$tagLine\npuuid: ${result.data.puuid}"
-                is RiotResult.NotFound -> "No account with riot ID $gameName#$tagLine"
-                is RiotResult.Failure -> "Request failed (status=${result.statusCode}): ${result.message}"
-            }
+        lifecycleScope.launch {
+            viewModel.state.collect { state -> view.text = state.render() }
         }
+        viewModel.load("Hide on bush", "KR1")
     }
 
     override fun onDestroy() {
-        scope.cancel()
         riot4k?.close()
         super.onDestroy()
+    }
+
+    private fun AccountUiState.render(): String = when (this) {
+        is AccountUiState.Idle -> ""
+        is AccountUiState.Loading -> "Looking up $riotId..."
+        is AccountUiState.Result -> when (val lookup = lookup) {
+            is AccountLookup.Found -> "${lookup.riotId}\npuuid: ${lookup.puuid}"
+            is AccountLookup.Missing -> "No account with that riot ID"
+            is AccountLookup.Error -> "Lookup failed: ${lookup.message}"
+        }
     }
 }
